@@ -1,0 +1,19 @@
+.Input {
+  width: 100%;
+  padding: 5px 10px;
+  margin: 8px 2px;
+  display: inline-block;
+  border: 0;
+  background-color: #fafafa;
+  box-sizing: border-box;
+}
+
+.CurrencyInput {
+  width: 6em;
+  padding: 5px 10px;
+  margin: 8px 2px;
+  display: inline-block;
+  border: 0;
+  background-color: #fafafa;
+  box-sizing: border-box;
+}

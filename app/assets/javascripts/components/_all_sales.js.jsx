@@ -13,6 +13,7 @@ const AllSales = (props) => {
     <div className="RowDiv">
       <div className="ColumnDiv">
         {sales}
+        {sales}
       </div>
       <div className="ColumnDiv">
         {sales}

@@ -1,7 +1,6 @@
 .AllCards {
   margin: 0;
   padding: 0;
-  list-style: none;
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -22,28 +21,31 @@
 .RowDiv {
   margin: 0;
   padding: 0;
-  list-style: none;
   display: flex;
   flex-flow: row;
-  align-items: center;
   height: 100%;
 }
 
 .ColumnDiv {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
   flex-flow: column;
   align-items: center;
   height: 100%;
-  box-sizing: border-box;
+  width: 100%;
+
 }
 
 .SaleCard {
-  padding: 0 10px;
-  margin: 0 5px;
+  padding: 1px 10px 10px 10px;
+  margin: 10px 5px;
   box-sizing: border-box;
-  display: block;
-  width: 100%;
+  box-shadow: 2px 2px 2px #ccc;
+  background-color: white;
+  border-radius: 7px;
+  position: relative;
+}
+
+.SaleCard .Currency {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }

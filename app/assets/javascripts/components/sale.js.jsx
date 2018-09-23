@@ -35,21 +35,29 @@ class Sale extends React.Component{
   render() {
     var manufacturer = <h3>{this.props.sale.manufacturer}</h3>;
     var description = <p>{this.props.sale.description}</p>;
-    var price = <p>{this.props.sale.price}</p>;
+    var price = <p className="Currency">{this.props.sale.price}</p>;
     if (this.state.editable) {
-      manufacturer = <input type='text' ref={input => this.manufacturer = input} defaultValue={this.props.sale.manufacturer}/>;
-      description = <input type='text' ref={input => this.description = input} defaultValue={this.props.sale.description}/>;
-      price = <input type='number' ref={input => this.price = input} defaultValue={this.props.sale.price}/>;
+      manufacturer =
+        <div>
+          <input
+            className="Input"
+            type='text'
+            ref={input => this.manufacturer = input}
+            placeholder="Título do negócio"
+            defaultValue={this.props.sale.manufacturer}
+          />;
+        </div>;
+      description = <input className="Input" type='text' ref={input => this.description = input} placeholder="Nome do cliente" defaultValue={this.props.sale.description}/>;
+      price = <input className="CurrencyInput Currency" type='text' ref={input => this.price = input} placeholder="R$ 0.00" defaultValue={this.props.sale.price}/>;
     }
 
     return(
-      <React.Fragment>
+      <div className="SaleCard">
         { manufacturer }
         { description }
         { price }
         <button onClick={this.handleToggleEdit}>{this.state.editable? 'Submit' : 'Edit'}</button>
-        <button onClick={this.handleDelete}>Delete</button>
-      </React.Fragment>
+      </div>
     )
   }
 }
