@@ -12,5 +12,5 @@ sales = [
 ]
 
 sales.each do |sale|
-  sale.each{ Sale.create(manufacturer: sale[0], description: sale[1], price: sale[2])}
+  Sale.create(manufacturer: sale[0], description: sale[1], price: sale[2])
 end

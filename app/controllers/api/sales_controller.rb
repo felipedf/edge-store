@@ -4,8 +4,8 @@ class Api::SalesController < ApplicationController
   end
 
   def create
-    fruit = Sale.create(fruit_params)
-    render json: fruit
+    sale = Sale.create(sale_params)
+    render json: sale
   end
 
   def destroy
@@ -13,14 +13,14 @@ class Api::SalesController < ApplicationController
   end
 
   def update
-    fruit = Sale.find(params[:id])
-    fruit.update_attributes(fruit_params)
-    render json: fruit
+    sale = Sale.find(params[:id])
+    sale.update_attributes(sale_params)
+    render json: sale
   end
 
   private
 
   def sale_params
-    params.require(:fruit).permit(:id, :name, :description)
+    params.require(:sale).permit(:id, :manufacturer, :description)
   end
 end

@@ -1,10 +1,16 @@
-class AllSales extends React.Component {
-
-  render(){
+const AllSales = (props) => {
+  var sales = props.sales.map((sale) => {
     return(
-      <div>
-        <h1>To do: List of Sales</h1>
-      </div>
+      <Sale key={sale.id}
+            sale={sale}
+            handleDelete={props.handleDelete}
+      />
     )
-  }
-}
+  });
+
+  return(
+    <div>
+      {sales}
+    </div>
+  )
+};
