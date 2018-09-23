@@ -1,5 +1,0 @@
-class Api::DashboardController < ApplicationController
-  def index
-    render json: Fruit.all
-  end
-end
