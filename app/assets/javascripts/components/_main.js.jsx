@@ -1,7 +1,7 @@
 const Main = (props) => {
   return (
-    <div>
-      <Dashboard/>
-    </div>
+    <Layout>
+      <Dashboard />
+    </Layout>
   )
 };

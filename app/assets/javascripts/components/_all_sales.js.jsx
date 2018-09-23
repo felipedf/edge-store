@@ -10,8 +10,25 @@ const AllSales = (props) => {
   });
 
   return(
-    <div>
-      {sales}
+    <div className="RowDiv">
+      <div className="ColumnDiv">
+        {sales}
+      </div>
+      <div className="ColumnDiv">
+        {sales}
+      </div>
+      <div className="ColumnDiv">
+        {sales}
+      </div>
+      <div className="ColumnDiv">
+        {sales}
+      </div>
+      <div className="ColumnDiv">
+        {sales}
+      </div>
+      <div className="ColumnDiv">
+        {sales}
+      </div>
     </div>
   )
 };

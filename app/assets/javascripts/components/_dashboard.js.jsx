@@ -2,7 +2,45 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sales: []
+      sales: [],
+      cards: [
+        {
+          id: 1,
+          cardName: 'Contato',
+          totalPrice: 150000,
+          totalSales: 2
+        },
+        {
+          id: 2,
+          cardName: 'Envio de proposta',
+          totalPrice: 100000,
+          totalSales: 0
+        },
+        {
+          id: 2,
+          cardName: 'Envio de proposta',
+          totalPrice: 100000,
+          totalSales: 0
+        },
+        {
+          id: 2,
+          cardName: 'Envio de proposta',
+          totalPrice: 100000,
+          totalSales: 0
+        },
+        {
+          id: 2,
+          cardName: 'Envio de proposta',
+          totalPrice: 100000,
+          totalSales: 0
+        },
+        {
+          id: 2,
+          cardName: 'Envio de proposta',
+          totalPrice: 100000,
+          totalSales: 0
+        }
+      ]
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -55,7 +93,6 @@ class Dashboard extends React.Component {
   }
 
   updateSale(sale) {
-    console.log('aaahaii', sale);
     let newSales = this.state.sales.filter((f) => f.id !== sale.id);
     newSales.push(sale);
 
@@ -82,6 +119,7 @@ class Dashboard extends React.Component {
     return(
       <div>
         <NewSale formSubmit={this.handleFormSubmit}/>
+        <AllCards cards={this.state.cards} />
         <AllSales
           sales={this.state.sales}
           handleDelete={this.handleSaleDelete}

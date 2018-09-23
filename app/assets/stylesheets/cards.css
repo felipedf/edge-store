@@ -1,0 +1,49 @@
+.AllCards {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  height: 100%;
+}
+
+
+.Card {
+  color: white;
+  padding: 0 10px;
+  margin: 0 5px;
+  background: linear-gradient(to bottom, #718bb4 50%, #697aab 0%);
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+}
+
+.RowDiv {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  height: 100%;
+}
+
+.ColumnDiv {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.SaleCard {
+  padding: 0 10px;
+  margin: 0 5px;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+}

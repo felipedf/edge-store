@@ -43,13 +43,13 @@ class Sale extends React.Component{
     }
 
     return(
-      <div>
+      <React.Fragment>
         { manufacturer }
         { description }
         { price }
         <button onClick={this.handleToggleEdit}>{this.state.editable? 'Submit' : 'Edit'}</button>
         <button onClick={this.handleDelete}>Delete</button>
-      </div>
+      </React.Fragment>
     )
   }
 }
