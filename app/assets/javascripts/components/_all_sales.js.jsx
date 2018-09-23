@@ -4,6 +4,7 @@ const AllSales = (props) => {
       <Sale key={sale.id}
             sale={sale}
             handleDelete={props.handleDelete}
+            handleUpdate={props.handleUpdate}
       />
     )
   });

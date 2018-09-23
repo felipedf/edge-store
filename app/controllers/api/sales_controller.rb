@@ -1,4 +1,6 @@
 class Api::SalesController < ApplicationController
+  include ActiveSupport::NumberHelper
+
   def index
     render json: Sale.all
   end
@@ -21,6 +23,6 @@ class Api::SalesController < ApplicationController
   private
 
   def sale_params
-    params.require(:sale).permit(:id, :manufacturer, :description)
+    params.require(:sale).permit(:id, :manufacturer, :description, :price)
   end
 end
