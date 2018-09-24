@@ -6,6 +6,7 @@ class Sale extends React.Component {
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleToggleEdit = this.handleToggleEdit.bind(this);
+    this.handleNewOrEditSale = this.handleNewOrEditSale.bind(this);
   }
 
   handleDelete() {
@@ -13,6 +14,12 @@ class Sale extends React.Component {
   }
 
   handleToggleEdit() {
+    if (!this.state.editable) {
+      this.setState({ editable: true })
+    }
+  }
+
+  handleNewOrEditSale() {
     if (this.state.editable) {
       let id = this.props.sale.id;
       let manufacturer = this.manufacturer.value;
@@ -27,9 +34,8 @@ class Sale extends React.Component {
       };
 
       this.props.handleUpdate(updatedSale);
+      this.setState({ editable: false })
     }
-
-    this.setState({ editable: !this.state.editable })
   }
 
   render() {
@@ -48,8 +54,8 @@ class Sale extends React.Component {
               defaultValue={this.props.sale.manufacturer}
             />
           </div>
-          <img className='ImageButton' src={"<%= asset_path('check_icon.png') %>"} alt="Confirm"/>
-          <img className='ImageButton' src={"<%= asset_path('x_icon.png') %>"} alt="Lost"/>
+          <img onClick={this.handleNewOrEditSale} className='ImageButton' src={"<%= asset_path('check_icon.png') %>"} alt="Confirm"/>
+          <img onClick={this.handleDelete} className='ImageButton' src={"<%= asset_path('x_icon.png') %>"} alt="Lost"/>
         </section>;
       description =
         <section className='InputList'>
@@ -68,11 +74,10 @@ class Sale extends React.Component {
     }
 
     return(
-      <div className="SaleCard">
+      <div onClick={this.handleToggleEdit} className="SaleCard">
         { manufacturer }
         { description }
         { price }
-        <button onClick={this.handleToggleEdit}>{this.state.editable? 'Submit' : 'Edit'}</button>
       </div>
     )
   }
