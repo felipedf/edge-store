@@ -1,11 +1,19 @@
 .Input {
-  width: 100%;
   padding: 5px 10px;
   margin: 8px 2px;
-  display: inline-block;
   border: 0;
   background-color: #fafafa;
   box-sizing: border-box;
+  flex: 1;
+  width: 100%;
+}
+
+.InputList {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
 }
 
 .CurrencyInput {

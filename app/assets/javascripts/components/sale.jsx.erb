@@ -1,5 +1,5 @@
-class Sale extends React.Component{
-  constructor(props){
+class Sale extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       editable: false
@@ -38,16 +38,32 @@ class Sale extends React.Component{
     var price = <p className="Currency">{this.props.sale.price}</p>;
     if (this.state.editable) {
       manufacturer =
-        <div>
-          <input
-            className="Input"
-            type='text'
-            ref={input => this.manufacturer = input}
-            placeholder="Título do negócio"
-            defaultValue={this.props.sale.manufacturer}
-          />;
-        </div>;
-      description = <input className="Input" type='text' ref={input => this.description = input} placeholder="Nome do cliente" defaultValue={this.props.sale.description}/>;
+        <section className="InputList">
+          <div style={{flex: 1}}>
+            <input
+              className='Input'
+              type='text'
+              ref={input => this.manufacturer = input}
+              placeholder='Título do negócio'
+              defaultValue={this.props.sale.manufacturer}
+            />
+          </div>
+          <img className='ImageButton' src={"<%= asset_path('check_icon.png') %>"} alt="Confirm"/>
+          <img className='ImageButton' src={"<%= asset_path('x_icon.png') %>"} alt="Lost"/>
+        </section>;
+      description =
+        <section className='InputList'>
+          <img src={"<%= asset_path('enterprise_icon.png') %>"} alt="Manufacturer"/>
+          <div style={{flex: 1}}>
+            <input
+              className='Input'
+              type='text'
+              ref={input => this.description = input}
+              placeholder='Nome do cliente'
+              defaultValue={this.props.sale.description}
+            />
+          </div>
+        </section>;
       price = <input className="CurrencyInput Currency" type='text' ref={input => this.price = input} placeholder="R$ 0.00" defaultValue={this.props.sale.price}/>;
     }
 

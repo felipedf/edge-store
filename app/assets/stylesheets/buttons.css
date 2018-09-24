@@ -4,9 +4,19 @@
   cursor: pointer;
   border: 0;
   font: inherit;
-  padding: 10px;
   margin: 10px;
   border-radius: 7px;
+}
+
+.Button img{
+  float:left;
+  margin-right: 5px;
+}
+
+.Button div {
+  padding: 7px 10px;
+  height: 25px;
+  line-height: 25px;
 }
 
 .Primary {
@@ -14,11 +24,9 @@
   box-shadow: 0 2px #4562c1;
 }
 
-.Danger {
-  color: #944317;
+.ImageButton {
+  margin: 3px;
 }
-
-.Button:disabled {
-  color: #ccc;
-  cursor: not-allowed;
+.ImageButton:hover {
+  box-shadow: 0 0 5px #d9d9d9;
 }

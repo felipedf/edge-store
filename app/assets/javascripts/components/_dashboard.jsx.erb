@@ -17,25 +17,25 @@ class Dashboard extends React.Component {
           totalSales: 0
         },
         {
-          id: 2,
+          id: 3,
           cardName: 'Envio de proposta',
           totalPrice: 100000,
           totalSales: 0
         },
         {
-          id: 2,
+          id: 4,
           cardName: 'Envio de proposta',
           totalPrice: 100000,
           totalSales: 0
         },
         {
-          id: 2,
+          id: 5,
           cardName: 'Envio de proposta',
           totalPrice: 100000,
           totalSales: 0
         },
         {
-          id: 2,
+          id: 6,
           cardName: 'Envio de proposta',
           totalPrice: 100000,
           totalSales: 0
@@ -118,6 +118,12 @@ class Dashboard extends React.Component {
   render() {
     return(
       <div>
+        <button className="Button Primary">
+          <div>
+            <img src={"<%= asset_path('currency_icon.png') %>"} alt="Add a sale"/>
+            Adicionar negócio
+          </div>
+        </button>
         <NewSale formSubmit={this.handleFormSubmit}/>
         <AllCards cards={this.state.cards} />
         <AllSales
