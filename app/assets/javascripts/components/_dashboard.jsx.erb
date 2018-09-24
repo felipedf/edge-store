@@ -43,7 +43,7 @@ class Dashboard extends React.Component {
       ]
     };
 
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleNewSale = this.handleNewSale.bind(this);
     this.handleSaleDelete = this.handleSaleDelete.bind(this);
     this.handleSaleDelete = this.handleSaleDelete.bind(this);
     this.handleSaleUpdate = this.handleSaleUpdate.bind(this);
@@ -65,8 +65,8 @@ class Dashboard extends React.Component {
       }).then( res => this.deleteSale(id) )
   }
 
-  handleFormSubmit(manufacturer, description, price) {
-    let body = JSON.stringify({ sale: {manufacturer: manufacturer, description: description, price: price} });
+  handleNewSale() {
+    let body = JSON.stringify({ sale: {manufacturer: '', description: '', price: 0} });
 
     fetch('/api/sales', {
       method: 'POST',
@@ -118,7 +118,7 @@ class Dashboard extends React.Component {
   render() {
     return(
       <div>
-        <button className="Button Primary">
+        <button onClick={this.handleNewSale} className="Button Primary">
           <div>
             <img src={"<%= asset_path('currency_icon.png') %>"} alt="Add a sale"/>
             Adicionar negócio
