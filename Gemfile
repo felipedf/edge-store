@@ -60,3 +60,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'react-rails'
 
 gem 'webpacker'
+
+gem 'pry'
+gem 'pry-nav'

@@ -15,4 +15,4 @@ const Main = (props) => {
   )
 };
 
-export default Main;
+export default DragDropContext(HTML5Backend)(Main);

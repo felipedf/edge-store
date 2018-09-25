@@ -8,41 +8,35 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sales: [],
+      sales: {},
       cards: [
         {
-          id: 1,
           cardName: 'Contato',
           totalPrice: 150000,
           totalSales: 2
         },
         {
-          id: 2,
           cardName: 'Envio de proposta',
           totalPrice: 100000,
           totalSales: 0
         },
         {
-          id: 3,
-          cardName: 'Envio de proposta',
+          cardName: 'Follow-up',
           totalPrice: 100000,
           totalSales: 0
         },
         {
-          id: 4,
-          cardName: 'Envio de proposta',
+          cardName: 'Fechamento',
           totalPrice: 100000,
           totalSales: 0
         },
         {
-          id: 5,
-          cardName: 'Envio de proposta',
+          cardName: 'Ganhos',
           totalPrice: 100000,
           totalSales: 0
         },
         {
-          id: 6,
-          cardName: 'Envio de proposta',
+          cardName: 'Perdidos',
           totalPrice: 100000,
           totalSales: 0
         }
@@ -57,8 +51,8 @@ class Dashboard extends Component {
 
   componentDidMount() {
     fetch('/api/sales.json')
-      .then((response) => {return response.json()})
-      .then((data) => {this.setState({ sales: data }) });
+      .then( response => response.json() )
+      .then( data => this.setState({ sales: data }) )
   }
 
   handleSaleDelete(id) {
@@ -72,7 +66,7 @@ class Dashboard extends Component {
   }
 
   handleNewSale() {
-    let body = JSON.stringify({ sale: {manufacturer: '', description: '', price: 0} });
+    const body = JSON.stringify({ sale: {manufacturer: '', description: '', price: 0, column_type: 'contato'} });
 
     fetch('/api/sales', {
       method: 'POST',
@@ -80,10 +74,8 @@ class Dashboard extends Component {
         'Content-Type': 'application/json'
       },
       body: body,
-    }).then( response => { return response.json() })
-      .then( sale => {
-        this.addNewSale(sale)
-      })
+    }).then( response => response.json() )
+      .then( sale => this.addNewSale(sale) )
 
   }
 
@@ -95,7 +87,7 @@ class Dashboard extends Component {
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then( res => { this.updateSale(sale) } )
+      }).then( res => { this.updateSale(sale) })
   }
 
   updateSale(sale) {
@@ -115,7 +107,7 @@ class Dashboard extends Component {
   }
 
   deleteSale(id) {
-    var newSales = this.state.sales.filter( sale => sale.id !== id );
+    const newSales = this.state.sales.filter( sale => sale.id !== id );
 
     this.setState({
       sales: newSales

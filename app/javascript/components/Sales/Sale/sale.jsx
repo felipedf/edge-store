@@ -4,6 +4,29 @@ import CheckIcon from '../../../images/check_icon.png';
 import XIcon from '../../../images/x_icon.png';
 import EnterpriseIcon from '../../../images/enterprise_icon.png';
 
+import { DragSource } from 'react-dnd';
+
+const saleSource = {
+  beginDrag(props) {
+    return props.sale;
+  },
+  endDrag(props, monitor, component) {
+    if (!monitor.didDrop()) {
+      return;
+    }
+
+    return props.handleDrop(props.sale.id);
+  }
+};
+
+const collect = (connect, monitor) => {
+  return {
+    connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging()
+  }
+};
+
 class Sale extends React.Component {
   state = {
     editable: this.props.sale.editable
@@ -39,6 +62,9 @@ class Sale extends React.Component {
   };
 
   render() {
+    const { isDragging, connectDragSource, sale } = this.props;
+    const opacity = isDragging ? 0 : 1;
+
     var manufacturer = <h3>{this.props.sale.manufacturer}</h3>;
     var description = <p>{this.props.sale.description}</p>;
     var price = <p className="Currency">{this.props.sale.price}</p>;
@@ -75,13 +101,15 @@ class Sale extends React.Component {
     }
 
     return(
-      <div onClick={this.handleToggleEdit} className="SaleCard">
-        { manufacturer }
-        { description }
-        { price }
-      </div>
+      connectDragSource(
+        <div onClick={this.handleToggleEdit} className="SaleCard" style={{opacity}}>
+          { manufacturer }
+          { description }
+          { price }
+        </div>
+      )
     )
   }
 }
 
-export default Sale;
+export default DragSource('sale', saleSource, collect)(Sale);

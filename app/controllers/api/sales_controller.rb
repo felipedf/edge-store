@@ -2,7 +2,8 @@ class Api::SalesController < ApplicationController
   include ActiveSupport::NumberHelper
 
   def index
-    render json: Sale.all
+    sales = Sale.all.group_by{|h| h[:column_type]}
+    render json: sales
   end
 
   def create
@@ -23,6 +24,6 @@ class Api::SalesController < ApplicationController
   private
 
   def sale_params
-    params.require(:sale).permit(:id, :manufacturer, :description, :price)
+    params.require(:sale).permit(:id, :manufacturer, :description, :price, :column_type)
   end
 end

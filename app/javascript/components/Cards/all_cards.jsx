@@ -5,7 +5,7 @@ import Card from './Card/card';
 const AllCards = (props) => {
   var cards = props.cards.map((card) => {
     return(
-      <Card key={card.id}
+      <Card key={card.cardName}
             cardName={card.cardName}
             totalPrice={card.totalPrice}
             totalSales={card.totalSales}
