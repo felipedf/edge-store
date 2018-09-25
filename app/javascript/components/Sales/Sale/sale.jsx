@@ -37,7 +37,7 @@ class Sale extends React.Component {
   };
 
   handleDelete = () => {
-    this.props.handleDelete(this.props.sale.id);
+    this.props.handleDelete(this.props.sale.id, this.props.sale.column_type);
   };
 
   handleToggleEdit = () => {
@@ -52,12 +52,14 @@ class Sale extends React.Component {
       let manufacturer = this.manufacturer.value;
       let description = this.description.value;
       let price = this.price.value;
+      let column = this.props.sale.column_type;
 
       let updatedSale = {
         id: id,
         manufacturer: manufacturer,
         description: description,
-        price: price
+        price: price,
+        column_type: column
       };
 
       this.props.handleUpdate(updatedSale);

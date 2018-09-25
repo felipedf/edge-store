@@ -62,14 +62,14 @@ class Dashboard extends Component {
       .then( data => this.setState({ sales: {...this.state.sales, ...data} }) )
   }
 
-  handleSaleDelete(id) {
+  handleSaleDelete(id, columnType) {
     fetch(`/api/sales/${id}`,
       {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then( res => this.deleteSale(id) )
+      }).then( res => this.deleteSale(id, columnType) )
   }
 
   handleNewSale() {
@@ -83,7 +83,6 @@ class Dashboard extends Component {
       body: body,
     }).then( response => response.json() )
       .then( sale => this.addNewSale(sale) )
-
   }
 
   handleSaleUpdate(sale) {
@@ -103,7 +102,10 @@ class Dashboard extends Component {
 
     newColumns[column_type] = this.state.sales[column_type].filter( sale => sale.id !== id );
     sale.column_type = newColumn;
-    newColumns[newColumn] = [...[sale]];
+    newColumns[newColumn] = [
+      ...this.state.sales[newColumn],
+      sale
+    ];
 
     this.setState({
       sales: {
@@ -114,26 +116,39 @@ class Dashboard extends Component {
   };
 
   updateSale(sale) {
-    let newSales = this.state.sales.filter((f) => f.id !== sale.id);
-    newSales.concat(sale);
+    let newSales = {};
+    newSales[sale.column_type] = this.state.sales[sale.column_type].filter((f) => f.id !== sale.id);
+    newSales[sale.column_type].push(sale);
 
     this.setState({
-      sales: newSales
+      sales: {
+        ...this.state.sales,
+        ...newSales
+      }
     })
   }
 
   addNewSale(sale) {
     sale['editable'] = true;
+    let sales = {};
+    sales[sale.column_type] = this.state.sales[sale.column_type].concat(sale);
     this.setState({
-      sales: this.state.sales.concat(sale)
+      sales: {
+        ...this.state.sales,
+        ...sales
+      }
     })
   }
 
-  deleteSale(id) {
-    const newSales = this.state.sales.filter( sale => sale.id !== id );
+  deleteSale(id, columnType) {
+    const newSales = {};
+    newSales[columnType] = this.state.sales[columnType].filter( sale => sale.id !== id );
 
     this.setState({
-      sales: newSales
+      sales: {
+        ...this.state.sales,
+        ...newSales
+      }
     })
   }
 
