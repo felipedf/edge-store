@@ -4,56 +4,25 @@ import GroupSales from './GroupSales/group_sales';
 import Sale from './Sale/sale';
 
 class AllSales extends Component {
-  state = {
-    contato: {
-      sales: []
-    },
-    proposta: {
-      sales: []
-    },
-    followUp: {
-      sales: []
-    },
-    fechamento: {
-      sales: []
-    },
-    ganhos: {
-      sales: []
-    },
-    perdidos: {
-      sales: []
-    }
-  };
-
-  removeSale = id => {
-    console.log("DELETE SALE " + id);
-  };
-
   render() {
-    console.log(this.props.sales);
-    let sales = [];
+    let columns = [];
     for (let sale in this.props.sales) {
-      sales = this.props.sales[sale].map((sale) => (
-        <GroupSales key={sale} sales={this.props.sales[sale]}/>
-      ));
-    }
-    const sales = this.props.sales.map((sale) => {
-      return (
+      const sales = this.props.sales[sale].map( sale => (
         <Sale key={sale.id}
               sale={sale}
               handleDelete={this.props.handleDelete}
               handleUpdate={this.props.handleUpdate}
-              handleDrop={id => this.removeSale(id)}
+              handleDrop={this.props.handleDrop}
         />
+      ));
+      columns.push(
+        <GroupSales key={sale} id={sale} sales={sales}/>
       )
-    });
+    }
 
     return (
       <div className="RowDiv">
-        <div className="ColumnDiv">{sales}</div>
-        {/*<GroupSales sales={sales}/>*/}
-
-        <GroupSales/>
+        {columns}
       </div>
     )
   }

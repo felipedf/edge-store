@@ -8,7 +8,14 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sales: {},
+      sales: {
+        contato: [],
+        proposta: [],
+        followUp: [],
+        fechamento: [],
+        ganhos: [],
+        perdidos: []
+      },
       cards: [
         {
           cardName: 'Contato',
@@ -52,7 +59,7 @@ class Dashboard extends Component {
   componentDidMount() {
     fetch('/api/sales.json')
       .then( response => response.json() )
-      .then( data => this.setState({ sales: data }) )
+      .then( data => this.setState({ sales: {...this.state.sales, ...data} }) )
   }
 
   handleSaleDelete(id) {
@@ -90,9 +97,25 @@ class Dashboard extends Component {
       }).then( res => { this.updateSale(sale) })
   }
 
+  handleSaleDrop = (sale, newColumn) => {
+    let {id, column_type} = sale;
+    const newColumns = {};
+
+    newColumns[column_type] = this.state.sales[column_type].filter( sale => sale.id !== id );
+    sale.column_type = newColumn;
+    newColumns[newColumn] = [...[sale]];
+
+    this.setState({
+      sales: {
+        ...this.state.sales,
+        ...newColumns
+      }
+    })
+  };
+
   updateSale(sale) {
     let newSales = this.state.sales.filter((f) => f.id !== sale.id);
-    newSales.push(sale);
+    newSales.concat(sale);
 
     this.setState({
       sales: newSales
@@ -128,6 +151,7 @@ class Dashboard extends Component {
           sales={this.state.sales}
           handleDelete={this.handleSaleDelete}
           handleUpdate={this.handleSaleUpdate}
+          handleDrop={this.handleSaleDrop}
         />
       </div>
     )

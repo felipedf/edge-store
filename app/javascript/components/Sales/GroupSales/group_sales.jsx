@@ -12,7 +12,7 @@ const collect = (connect, monitor) => {
 
 const groupTarget = {
   drop(props, monitor, component) {
-    return monitor.getItem();
+    return { columnType: props.id }
   }
 };
 
@@ -21,7 +21,7 @@ class GroupSales extends Component {
   render() {
     const { connectDropTarget, hovered, sale} = this.props;
     const backgroundColor = hovered ? 'lightgreen' : 'inherit';
-    console.log(this.props.sales)
+
     return (
       connectDropTarget(
         <div className="ColumnDiv" style={{ background: backgroundColor }}>

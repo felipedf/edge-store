@@ -15,7 +15,11 @@ const saleSource = {
       return;
     }
 
-    return props.handleDrop(props.sale.id);
+    const newColumn = monitor.getDropResult();
+    return props.handleDrop(
+      props.sale,
+      newColumn.columnType
+    );
   }
 };
 
