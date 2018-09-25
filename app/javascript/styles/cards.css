@@ -10,12 +10,44 @@
 
 .Card {
   color: white;
-  padding: 0 10px;
   margin: 0 5px;
-  background: linear-gradient(to bottom, #718bb4 50%, #697aab 0%);
   box-sizing: border-box;
+  font-style: italic;
   display: block;
   width: 100%;
+}
+
+.Card * {
+  margin: 0;
+}
+
+.CardTitle {
+  font-weight: bold;
+}
+
+.CardBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.CardBody p:nth-child(2) {
+  text-align: right;
+}
+
+.CardTitle, .CardBody {
+  padding: 10px 10px;
+}
+
+.CardPrimary {
+  background: linear-gradient(to bottom, #718bb4 50%, #697aab 0%);
+}
+
+.CardDanger {
+  background: linear-gradient(to bottom, #b43860 50%, #ab163e 0%);
+}
+
+.CardSuccess {
+  background: linear-gradient(to bottom, #60b45b 50%, #17ab5d 0%);
 }
 
 .RowDiv {

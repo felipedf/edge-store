@@ -20,32 +20,38 @@ class Dashboard extends Component {
         {
           cardName: 'Contato',
           totalPrice: 150000,
-          totalSales: 2
+          totalSales: 2,
+          cardClass: 'CardPrimary'
         },
         {
           cardName: 'Envio de proposta',
           totalPrice: 100000,
-          totalSales: 0
+          totalSales: 0,
+          cardClass: 'CardPrimary'
         },
         {
           cardName: 'Follow-up',
           totalPrice: 100000,
-          totalSales: 0
+          totalSales: 0,
+          cardClass: 'CardPrimary'
         },
         {
           cardName: 'Fechamento',
           totalPrice: 100000,
-          totalSales: 0
+          totalSales: 0,
+          cardClass: 'CardPrimary'
         },
         {
           cardName: 'Ganhos',
           totalPrice: 100000,
-          totalSales: 0
+          totalSales: 0,
+          cardClass: 'CardSuccess'
         },
         {
           cardName: 'Perdidos',
           totalPrice: 100000,
-          totalSales: 0
+          totalSales: 0,
+          cardClass: 'CardDanger'
         }
       ]
     };
@@ -98,6 +104,7 @@ class Dashboard extends Component {
 
   handleSaleDrop = (sale, newColumn) => {
     let {id, column_type} = sale;
+    if (column_type === newColumn) return;
     const newColumns = {};
 
     newColumns[column_type] = this.state.sales[column_type].filter( sale => sale.id !== id );
@@ -106,7 +113,6 @@ class Dashboard extends Component {
       ...this.state.sales[newColumn],
       sale
     ];
-
     this.setState({
       sales: {
         ...this.state.sales,
@@ -117,7 +123,7 @@ class Dashboard extends Component {
 
   updateSale(sale) {
     let newSales = {};
-    newSales[sale.column_type] = this.state.sales[sale.column_type].filter((f) => f.id !== sale.id);
+    newSales[sale.column_type] = this.state.sales[sale.column_type].filter( s => s.id !== sale.id);
     newSales[sale.column_type].push(sale);
 
     this.setState({

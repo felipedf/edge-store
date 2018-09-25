@@ -9,6 +9,7 @@ const AllCards = (props) => {
             cardName={card.cardName}
             totalPrice={card.totalPrice}
             totalSales={card.totalSales}
+            cardClass={card.cardClass}
       />
     )
   });
