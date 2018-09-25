@@ -1,4 +1,10 @@
-class Dashboard extends React.Component {
+import React, { Component } from 'react';
+
+import AllCards from '../../components/Cards/all_cards';
+import AllSales from '../../components/Sales/all_sales';
+import CurrencyIcon from '../../images/currency_icon.png';
+
+class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,6 +108,7 @@ class Dashboard extends React.Component {
   }
 
   addNewSale(sale) {
+    sale['editable'] = true;
     this.setState({
       sales: this.state.sales.concat(sale)
     })
@@ -120,11 +127,10 @@ class Dashboard extends React.Component {
       <div>
         <button onClick={this.handleNewSale} className="Button Primary">
           <div>
-            <img src={"<%= asset_path('currency_icon.png') %>"} alt="Add a sale"/>
+            <img src={CurrencyIcon} alt="Add a sale"/>
             Adicionar negócio
           </div>
         </button>
-        <NewSale formSubmit={this.handleFormSubmit}/>
         <AllCards cards={this.state.cards} />
         <AllSales
           sales={this.state.sales}
@@ -135,3 +141,5 @@ class Dashboard extends React.Component {
     )
   }
 }
+
+export default Dashboard;

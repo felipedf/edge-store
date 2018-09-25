@@ -1,3 +1,7 @@
+import React from 'react';
+
+import Card from './Card/card';
+
 const AllCards = (props) => {
   var cards = props.cards.map((card) => {
     return(
@@ -15,3 +19,5 @@ const AllCards = (props) => {
     </div>
   )
 };
+
+export default AllCards;

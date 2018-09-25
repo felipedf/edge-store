@@ -1,25 +1,25 @@
+import React from 'react';
+
+import CheckIcon from '../../../images/check_icon.png';
+import XIcon from '../../../images/x_icon.png';
+import EnterpriseIcon from '../../../images/enterprise_icon.png';
+
 class Sale extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editable: false
-    };
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleToggleEdit = this.handleToggleEdit.bind(this);
-    this.handleNewOrEditSale = this.handleNewOrEditSale.bind(this);
-  }
+  state = {
+    editable: this.props.sale.editable
+  };
 
-  handleDelete() {
+  handleDelete = () => {
     this.props.handleDelete(this.props.sale.id);
-  }
+  };
 
-  handleToggleEdit() {
+  handleToggleEdit = () => {
     if (!this.state.editable) {
       this.setState({ editable: true })
     }
-  }
+  };
 
-  handleNewOrEditSale() {
+  handleNewOrEditSale = () => {
     if (this.state.editable) {
       let id = this.props.sale.id;
       let manufacturer = this.manufacturer.value;
@@ -36,7 +36,7 @@ class Sale extends React.Component {
       this.props.handleUpdate(updatedSale);
       this.setState({ editable: false })
     }
-  }
+  };
 
   render() {
     var manufacturer = <h3>{this.props.sale.manufacturer}</h3>;
@@ -47,26 +47,27 @@ class Sale extends React.Component {
         <section className="InputList">
           <div style={{flex: 1}}>
             <input
+              autoFocus
               className='Input'
               type='text'
-              ref={input => this.manufacturer = input}
+              ref={input => this.description = input}
               placeholder='Título do negócio'
-              defaultValue={this.props.sale.manufacturer}
+              defaultValue={this.props.sale.description}
             />
           </div>
-          <img onClick={this.handleNewOrEditSale} className='ImageButton' src={"<%= asset_path('check_icon.png') %>"} alt="Confirm"/>
-          <img onClick={this.handleDelete} className='ImageButton' src={"<%= asset_path('x_icon.png') %>"} alt="Lost"/>
+          <img onClick={this.handleNewOrEditSale} className='ImageButton' src={CheckIcon} alt="Confirm"/>
+          <img onClick={this.handleDelete} className='ImageButton' src={XIcon} alt="Lost"/>
         </section>;
       description =
         <section className='InputList'>
-          <img src={"<%= asset_path('enterprise_icon.png') %>"} alt="Manufacturer"/>
+          <img src={EnterpriseIcon} alt="Manufacturer"/>
           <div style={{flex: 1}}>
             <input
               className='Input'
               type='text'
-              ref={input => this.description = input}
+              ref={input => this.manufacturer = input}
               placeholder='Nome do cliente'
-              defaultValue={this.props.sale.description}
+              defaultValue={this.props.sale.manufacturer}
             />
           </div>
         </section>;
@@ -82,3 +83,5 @@ class Sale extends React.Component {
     )
   }
 }
+
+export default Sale;

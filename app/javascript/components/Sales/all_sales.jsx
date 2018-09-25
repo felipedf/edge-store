@@ -1,3 +1,6 @@
+import React from 'react';
+import Sale from './Sale/sale';
+
 const AllSales = (props) => {
   var sales = props.sales.map((sale) => {
     return(
@@ -13,23 +16,19 @@ const AllSales = (props) => {
     <div className="RowDiv">
       <div className="ColumnDiv">
         {sales}
-        {sales}
       </div>
       <div className="ColumnDiv">
-        {sales}
       </div>
       <div className="ColumnDiv">
-        {sales}
       </div>
       <div className="ColumnDiv">
-        {sales}
       </div>
       <div className="ColumnDiv">
-        {sales}
       </div>
       <div className="ColumnDiv">
-        {sales}
       </div>
     </div>
   )
 };
+
+export default AllSales;

@@ -1,0 +1,16 @@
+{
+  "application.css": "/packs/application-43c76d9f8ffde5ce4ce2ada25c5d9741.css",
+  "application.css.map": "/packs/application-43c76d9f8ffde5ce4ce2ada25c5d9741.css.map",
+  "application.js": "/packs/application-3b4dfae23b91defa913a.js",
+  "application.js.map": "/packs/application-3b4dfae23b91defa913a.js.map",
+  "hello_react.js": "/packs/hello_react-5fa72b3b9d24fe420929.js",
+  "hello_react.js.map": "/packs/hello_react-5fa72b3b9d24fe420929.js.map",
+  "images/check_icon.png": "/packs/images/check_icon-2115b2ab25c6244f8ccc7e63f791fcb9.png",
+  "images/currency_icon.png": "/packs/images/currency_icon-fa0fcceba22473a2100dadee1f741d20.png",
+  "images/enterprise_icon.png": "/packs/images/enterprise_icon-560463b0d737842c967fb25ffb207cec.png",
+  "images/x_icon.png": "/packs/images/x_icon-e94f70ed883689fa5ba6d91810753a29.png",
+  "server_rendering.css": "/packs/server_rendering-43c76d9f8ffde5ce4ce2ada25c5d9741.css",
+  "server_rendering.css.map": "/packs/server_rendering-43c76d9f8ffde5ce4ce2ada25c5d9741.css.map",
+  "server_rendering.js": "/packs/server_rendering-aa4b6d82646d20e70afd.js",
+  "server_rendering.js.map": "/packs/server_rendering-aa4b6d82646d20e70afd.js.map"
+}
