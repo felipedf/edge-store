@@ -8,7 +8,7 @@ const Card = (props) => {
         <h3>{props.cardName}</h3>
       </div>
       <div className="CardBody">
-        <p>R${props.totalPrice}</p>
+        <p>R$ {props.totalPrice}</p>
         <p>{props.totalSales} negócios</p>
       </div>
     </div>

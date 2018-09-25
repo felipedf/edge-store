@@ -16,44 +16,44 @@ class Dashboard extends Component {
         ganhos: [],
         perdidos: []
       },
-      cards: [
-        {
+      cards: {
+        contato: {
           cardName: 'Contato',
-          totalPrice: 150000,
-          totalSales: 2,
+          totalPrice: 0,
+          totalSales: 0,
           cardClass: 'CardPrimary'
         },
-        {
+        proposta: {
           cardName: 'Envio de proposta',
-          totalPrice: 100000,
+          totalPrice: 0,
           totalSales: 0,
           cardClass: 'CardPrimary'
         },
-        {
+        followUp: {
           cardName: 'Follow-up',
-          totalPrice: 100000,
+          totalPrice: 0,
           totalSales: 0,
           cardClass: 'CardPrimary'
         },
-        {
+        fechamento: {
           cardName: 'Fechamento',
-          totalPrice: 100000,
+          totalPrice: 0,
           totalSales: 0,
           cardClass: 'CardPrimary'
         },
-        {
+        ganhos: {
           cardName: 'Ganhos',
-          totalPrice: 100000,
+          totalPrice: 0,
           totalSales: 0,
           cardClass: 'CardSuccess'
         },
-        {
+        perdidos: {
           cardName: 'Perdidos',
-          totalPrice: 100000,
+          totalPrice: 0,
           totalSales: 0,
           cardClass: 'CardDanger'
         }
-      ]
+      }
     };
 
     this.handleNewSale = this.handleNewSale.bind(this);
@@ -65,7 +65,25 @@ class Dashboard extends Component {
   componentDidMount() {
     fetch('/api/sales.json')
       .then( response => response.json() )
-      .then( data => this.setState({ sales: {...this.state.sales, ...data} }) )
+      .then( sales => {
+        let stateCopy = {
+          sales: { ...this.state.sales, ...sales },
+          cards: { ...this.state.cards }
+        };
+
+        Object.keys(sales).map( saleType => {
+          const totalPrice = sales[saleType].reduce( (price, sale) => (sale.price || 0), 0);
+          const totalSales = sales[saleType].length;
+
+          stateCopy.cards[saleType] = {
+              ...this.state.cards[saleType],
+              totalPrice: totalPrice,
+              totalSales: totalSales
+          }
+        });
+
+        this.setState(stateCopy)
+      })
   }
 
   handleSaleDelete(id, columnType) {
