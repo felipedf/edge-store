@@ -39,15 +39,15 @@
 }
 
 .CardPrimary {
-  background: linear-gradient(to bottom, #718bb4 50%, #697aab 0%);
+  background: linear-gradient(to bottom, #5383A4 50%, #49738E 0%);
 }
 
 .CardDanger {
-  background: linear-gradient(to bottom, #b43860 50%, #ab163e 0%);
+  background: linear-gradient(to bottom, #B35C5F 50%, #944749 0%);
 }
 
 .CardSuccess {
-  background: linear-gradient(to bottom, #60b45b 50%, #17ab5d 0%);
+  background: linear-gradient(to bottom, #5EA462 50%, #4F8E56 0%);
 }
 
 .RowDiv {
@@ -65,18 +65,31 @@
   width: 500px;
 }
 
+.EnterpriseIcon {
+  opacity: 0.5;
+  width: 18px;
+}
+
 .SaleCard {
-  padding: 1px 10px 10px 10px;
-  margin: 10px 5px;
+  padding: 10px 10px 0 10px;
+  margin: 5px 5px;
   box-sizing: border-box;
   box-shadow: 2px 2px 2px #ccc;
   background-color: white;
   border-radius: 7px;
-  position: relative;
+  min-height: 80px;
+  color: dimgrey;
 }
 
-.SaleCard .Currency {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+.SaleCard * {
+  margin: 0;
+}
+
+.SaleCard p {
+  margin: 0 0 5px 5px;
+}
+
+.Currency {
+  text-align: right;
+  color: #5EA462;
 }

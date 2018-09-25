@@ -71,8 +71,13 @@ class Sale extends React.Component {
     const { isDragging, connectDragSource, sale } = this.props;
     const opacity = isDragging ? 0 : 1;
 
-    var manufacturer = <h3>{this.props.sale.manufacturer}</h3>;
-    var description = <p>{this.props.sale.description}</p>;
+    var manufacturer = <p>{this.props.sale.manufacturer}</p>;
+    var description = (
+      <section className='InputList'>
+        <img className="EnterpriseIcon" src={EnterpriseIcon} alt="Manufacturer"/>
+        <p>{this.props.sale.description}</p>
+      </section>
+    );
     var price = <p className="Currency">{this.props.sale.price}</p>;
     if (this.state.editable) {
       manufacturer =
@@ -92,7 +97,7 @@ class Sale extends React.Component {
         </section>;
       description =
         <section className='InputList'>
-          <img src={EnterpriseIcon} alt="Manufacturer"/>
+          <img className="EnterpriseIcon" src={EnterpriseIcon} alt="Manufacturer"/>
           <div style={{flex: 1}}>
             <input
               className='Input'
@@ -103,7 +108,11 @@ class Sale extends React.Component {
             />
           </div>
         </section>;
-      price = <input className="CurrencyInput Currency" type='text' ref={input => this.price = input} placeholder="R$ 0.00" defaultValue={this.props.sale.price}/>;
+      price = (
+        <div className="CurrencyDiv">
+          <input className="CurrencyInput Currency" type='text' ref={input => this.price = input} placeholder="R$ 0.00" defaultValue={this.props.sale.price}/>
+        </div>
+      )
     }
 
     return(
