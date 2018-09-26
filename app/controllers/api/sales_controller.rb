@@ -24,6 +24,6 @@ class Api::SalesController < ApplicationController
   private
 
   def sale_params
-    params.require(:sale).permit(:id, :manufacturer, :description, :price, :column_type)
+    params.require(:sale).permit(:id, :manufacturer, :description, :price, :column_type, :column_update)
   end
 end

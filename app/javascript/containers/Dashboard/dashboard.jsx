@@ -53,6 +53,11 @@ class Dashboard extends Component {
           totalSales: 0,
           cardClass: 'CardDanger'
         }
+      },
+      columnUpdate: {
+        saleName: '',
+        lastColumn: '',
+        timeToUpdate: ''
       }
     };
 
@@ -89,7 +94,7 @@ class Dashboard extends Component {
 
     this.setState({
       sales: stateCopy.sales,
-      cards: {...this.state.cards, ...stateCopy.cards}
+      cards: {...this.state.cards, ...stateCopy.cards},
     })
   }
 
@@ -104,7 +109,14 @@ class Dashboard extends Component {
   }
 
   handleNewSale() {
-    const body = JSON.stringify({ sale: {manufacturer: '', description: '', price: 0, column_type: 'contato'} });
+    const body = JSON.stringify({
+      sale: {
+        manufacturer: '',
+        description: '',
+        price: 0,
+        column_type: 'contato',
+        column_update: new Date()
+      } });
 
     fetch('/api/sales', {
       method: 'POST',
@@ -138,6 +150,10 @@ class Dashboard extends Component {
 
     newColumns[oldColumn] = this.state.sales[oldColumn].filter( sale => sale.id !== id );
 
+    const now = new Date();
+    const updateTime = (now - new Date(sale.column_update))/1000; // Time in seconds
+    sale.column_update = now;
+
     newColumns[column_type] = [
       ...this.state.sales[column_type],
       sale
@@ -147,6 +163,14 @@ class Dashboard extends Component {
       ...this.state.sales,
       ...newColumns
     };
+
+    this.setState({
+      columnUpdate: {
+        saleName: sale.description,
+        lastColumn: oldColumn,
+        timeToUpdate: updateTime
+      }
+    });
 
     this.updateColumnCards(newSales);
   };
@@ -189,22 +213,33 @@ class Dashboard extends Component {
   }
 
   render() {
+    const {saleName, lastColumn, timeToUpdate} = this.state.columnUpdate;
+
     return(
-      <div>
-        <button onClick={this.handleNewSale} className="Button Primary">
-          <div>
-            <img src={CurrencyIcon} alt="Add a sale"/>
-            Adicionar negócio
-          </div>
-        </button>
-        <AllCards cards={this.state.cards} />
-        <AllSales
-          sales={this.state.sales}
-          handleDelete={this.handleSaleDelete}
-          handleUpdate={this.handleSaleUpdate}
-          handleDrop={this.handleSaleUpdate}
-        />
-      </div>
+      <React.Fragment>
+        <div>
+          <button onClick={this.handleNewSale} className="Button Primary">
+            <div>
+              <img src={CurrencyIcon} alt="Add a sale"/>
+              Adicionar negócio
+            </div>
+          </button>
+          <AllCards cards={this.state.cards} />
+          <AllSales
+            sales={this.state.sales}
+            handleDelete={this.handleSaleDelete}
+            handleUpdate={this.handleSaleUpdate}
+            handleDrop={this.handleSaleUpdate}
+          />
+        </div>
+        <div>
+          <p>{saleName
+                ? `${saleName} lasted on ${lastColumn} for ${timeToUpdate}seconds`
+                : null
+             }
+          </p>
+        </div>
+      </React.Fragment>
     )
   }
 }
