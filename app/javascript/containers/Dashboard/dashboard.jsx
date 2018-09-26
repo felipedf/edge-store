@@ -60,7 +60,8 @@ class Dashboard extends Component {
         lastColumn: '',
         timeToUpdate: '',
         winDate: '',
-      }
+      },
+      invalid: false
     };
 
     this.handleNewSale = this.handleNewSale.bind(this);
@@ -178,7 +179,8 @@ class Dashboard extends Component {
         actualColumn: sale.column_type,
         timeToUpdate: updateTime,
         winDate: winDate
-      }
+      },
+      invalid: false
     });
 
     this.updateColumnCards(newSales);
@@ -221,14 +223,20 @@ class Dashboard extends Component {
     this.updateColumnCards(allSales);
   }
 
+  invalidAction = () => {
+    this.setState({ invalid: true });
+  };
+
   render() {
     const {saleName, actualColumn, lastColumn, timeToUpdate, winDate} = this.state.columnUpdate;
 
-    let footer = null;
-    if (saleName) {
-      footer = actualColumn === 'ganhos'
-        ? <p> O item <span>{saleName}</span> foi GANHO em {winDate}</p>
-        : <p> O item <span>{saleName}</span> durou como {lastColumn} por {timeToUpdate}segundos</p>
+    let message = null;
+    if (this.state.invalid) {
+      message = <p className="Invalid">Um item ganho não pode mudar de etapa</p>
+    }else if (saleName) {
+      message = actualColumn === 'ganhos'
+        ? <p className="Success"> O item <span>{saleName}</span> foi GANHO em {winDate}</p>
+        : <p> O item <span>{saleName}</span> durou como {lastColumn} por {timeToUpdate} segundos</p>
     }
 
     return(
@@ -246,10 +254,12 @@ class Dashboard extends Component {
             handleDelete={this.handleSaleDelete}
             handleUpdate={this.handleSaleUpdate}
             handleDrop={this.handleSaleUpdate}
+            invalidAction={this.invalidAction}
+            invalidDrop={this.state.invalid}
           />
         </div>
-        <div>
-          {footer}
+        <div className="Message">
+          {message}
         </div>
       </React.Fragment>
     )

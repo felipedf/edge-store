@@ -7,3 +7,20 @@
   top: 0;
   background-color: #e1e1e1;
 }
+
+.Message {
+  box-sizing: border-box;
+}
+
+.Invalid {
+  color: #b31325;
+}
+
+.Success {
+  color: #29b318;
+}
+
+.Message span {
+  font-style: italic;
+  font-weight: bold;
+}

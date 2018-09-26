@@ -13,10 +13,11 @@ class AllSales extends Component {
               handleDelete={this.props.handleDelete}
               handleUpdate={this.props.handleUpdate}
               handleDrop={this.props.handleDrop}
+              invalidAction={this.props.invalidAction}
         />
       ));
       columns.push(
-        <GroupSales key={sale} id={sale} sales={sales}/>
+        <GroupSales key={sale} id={sale} sales={sales} invalidDrop={this.props.invalidDrop}/>
       )
     }
 

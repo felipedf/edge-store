@@ -4,6 +4,7 @@ import CheckIcon from '../../../images/check_icon.png';
 import XIcon from '../../../images/x_icon.png';
 import EnterpriseIcon from '../../../images/enterprise_icon.png';
 
+import CurrencyInput from 'react-currency-masked-input';
 import { DragSource } from 'react-dnd';
 
 const saleSource = {
@@ -17,6 +18,11 @@ const saleSource = {
 
     const newColumn = monitor.getDropResult().columnType;
     const oldColumn = props.sale.column_type;
+
+    if ( newColumn !== 'perdidos' && oldColumn === 'ganhos') {
+      return props.invalidAction();
+    }
+
     const newSale = {...props.sale, column_type: newColumn};
     return props.handleDrop(
       newSale,
@@ -80,7 +86,7 @@ class Sale extends React.Component {
         <p>{this.props.sale.manufacturer}</p>
       </section>
     );
-    let price = <p className="Currency">{this.props.sale.price}</p>;
+    let price = <p className="Currency">R$ {this.props.sale.price}</p>;
     if (this.state.editable) {
       description =
         <section className="InputList">
@@ -112,7 +118,7 @@ class Sale extends React.Component {
         </section>;
       price = (
         <div className="CurrencyDiv">
-          <input className="CurrencyInput Currency" type='text' ref={input => this.price = input} placeholder="R$ 0.00" defaultValue={this.props.sale.price}/>
+          <CurrencyInput className="CurrencyInput Currency" type='text' ref={input => this.price = input} placeholder="R$ 0.00" defaultValue={this.props.sale.price}/>
         </div>
       )
     }
