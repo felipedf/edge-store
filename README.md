@@ -5,8 +5,9 @@
 Technologies: React and Rails with Webpack
 
 <h2>How to use?</h2>
-clone this repo: 
-```
+clone this repo:
+
+```ruby
  git clone https://github.com/felipedf/edge-store.git 
 ```
 
