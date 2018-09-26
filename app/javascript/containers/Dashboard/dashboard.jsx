@@ -66,24 +66,31 @@ class Dashboard extends Component {
     fetch('/api/sales.json')
       .then( response => response.json() )
       .then( sales => {
-        let stateCopy = {
-          sales: { ...this.state.sales, ...sales },
-          cards: { ...this.state.cards }
-        };
-
-        Object.keys(sales).map( saleType => {
-          const totalPrice = sales[saleType].reduce( (price, sale) => (sale.price || 0), 0);
-          const totalSales = sales[saleType].length;
-
-          stateCopy.cards[saleType] = {
-              ...this.state.cards[saleType],
-              totalPrice: totalPrice,
-              totalSales: totalSales
-          }
-        });
-
-        this.setState(stateCopy)
+        this.updateColumnCards(sales)
       })
+  }
+
+  updateColumnCards(sales) {
+    let stateCopy = {
+      sales: { ...this.state.sales, ...sales },
+      cards: {}
+    };
+
+    Object.keys(sales).map( saleType => {
+      const totalPrice = sales[saleType].reduce( (price, sale) => (price + (+sale.price || 0)), 0);
+      const totalSales = sales[saleType].length;
+
+      stateCopy.cards[saleType] = {
+        ...this.state.cards[saleType],
+        totalPrice: totalPrice,
+        totalSales: totalSales
+      }
+    });
+
+    this.setState({
+      sales: stateCopy.sales,
+      cards: {...this.state.cards, ...stateCopy.cards}
+    })
   }
 
   handleSaleDelete(id, columnType) {
@@ -109,7 +116,7 @@ class Dashboard extends Component {
       .then( sale => this.addNewSale(sale) )
   }
 
-  handleSaleUpdate(sale) {
+  handleSaleUpdate(sale, oldColumn = null) {
     fetch(`/api/sales/${sale.id}`,
       {
         method: 'PUT',
@@ -117,26 +124,31 @@ class Dashboard extends Component {
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then( res => { this.updateSale(sale) })
+      }).then( res => {
+        oldColumn
+          ? this.handleSaleDrop(sale, oldColumn)
+          : this.updateSale(sale)
+      })
   }
 
-  handleSaleDrop = (sale, newColumn) => {
+  handleSaleDrop = (sale, oldColumn) => {
     let {id, column_type} = sale;
-    if (column_type === newColumn) return;
+    if (column_type === oldColumn) return;
     const newColumns = {};
 
-    newColumns[column_type] = this.state.sales[column_type].filter( sale => sale.id !== id );
-    sale.column_type = newColumn;
-    newColumns[newColumn] = [
-      ...this.state.sales[newColumn],
+    newColumns[oldColumn] = this.state.sales[oldColumn].filter( sale => sale.id !== id );
+
+    newColumns[column_type] = [
+      ...this.state.sales[column_type],
       sale
     ];
-    this.setState({
-      sales: {
-        ...this.state.sales,
-        ...newColumns
-      }
-    })
+
+    const newSales = {
+      ...this.state.sales,
+      ...newColumns
+    };
+
+    this.updateColumnCards(newSales);
   };
 
   updateSale(sale) {
@@ -144,12 +156,12 @@ class Dashboard extends Component {
     newSales[sale.column_type] = this.state.sales[sale.column_type].filter( s => s.id !== sale.id);
     newSales[sale.column_type].push(sale);
 
-    this.setState({
-      sales: {
+    const allSales = {
         ...this.state.sales,
         ...newSales
-      }
-    })
+    };
+
+    this.updateColumnCards(allSales);
   }
 
   addNewSale(sale) {
@@ -168,12 +180,12 @@ class Dashboard extends Component {
     const newSales = {};
     newSales[columnType] = this.state.sales[columnType].filter( sale => sale.id !== id );
 
-    this.setState({
-      sales: {
-        ...this.state.sales,
-        ...newSales
-      }
-    })
+    const allSales = {
+      ...this.state.sales,
+      ...newSales
+    };
+
+    this.updateColumnCards(allSales);
   }
 
   render() {
@@ -190,7 +202,7 @@ class Dashboard extends Component {
           sales={this.state.sales}
           handleDelete={this.handleSaleDelete}
           handleUpdate={this.handleSaleUpdate}
-          handleDrop={this.handleSaleDrop}
+          handleDrop={this.handleSaleUpdate}
         />
       </div>
     )

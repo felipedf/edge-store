@@ -16,6 +16,10 @@
   align-items: center;
 }
 
+.Description {
+  font-weight: bold;
+}
+
 .CurrencyDiv {
   text-align: right;
 }

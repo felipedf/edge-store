@@ -15,10 +15,12 @@ const saleSource = {
       return;
     }
 
-    const newColumn = monitor.getDropResult();
+    const newColumn = monitor.getDropResult().columnType;
+    const oldColumn = props.sale.column_type;
+    const newSale = {...props.sale, column_type: newColumn};
     return props.handleDrop(
-      props.sale,
-      newColumn.columnType
+      newSale,
+      oldColumn
     );
   }
 };
@@ -71,16 +73,16 @@ class Sale extends React.Component {
     const { isDragging, connectDragSource, sale } = this.props;
     const opacity = isDragging ? 0 : 1;
 
-    var manufacturer = <p>{this.props.sale.manufacturer}</p>;
-    var description = (
+    let description = <p className="Description">{this.props.sale.description}</p>;
+    let manufacturer = (
       <section className='InputList'>
         <img className="EnterpriseIcon" src={EnterpriseIcon} alt="Manufacturer"/>
-        <p>{this.props.sale.description}</p>
+        <p>{this.props.sale.manufacturer}</p>
       </section>
     );
-    var price = <p className="Currency">{this.props.sale.price}</p>;
+    let price = <p className="Currency">{this.props.sale.price}</p>;
     if (this.state.editable) {
-      manufacturer =
+      description =
         <section className="InputList">
           <div style={{flex: 1}}>
             <input
@@ -95,7 +97,7 @@ class Sale extends React.Component {
           <img onClick={this.handleNewOrEditSale} className='ImageButton' src={CheckIcon} alt="Confirm"/>
           <img onClick={this.handleDelete} className='ImageButton' src={XIcon} alt="Lost"/>
         </section>;
-      description =
+      manufacturer =
         <section className='InputList'>
           <img className="EnterpriseIcon" src={EnterpriseIcon} alt="Manufacturer"/>
           <div style={{flex: 1}}>
@@ -118,8 +120,8 @@ class Sale extends React.Component {
     return(
       connectDragSource(
         <div onClick={this.handleToggleEdit} className="SaleCard" style={{opacity}}>
-          { manufacturer }
           { description }
+          { manufacturer }
           { price }
         </div>
       )
