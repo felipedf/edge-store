@@ -63,11 +63,6 @@ class Dashboard extends Component {
       },
       invalid: false
     };
-
-    this.handleNewSale = this.handleNewSale.bind(this);
-    this.handleSaleDelete = this.handleSaleDelete.bind(this);
-    this.handleSaleDelete = this.handleSaleDelete.bind(this);
-    this.handleSaleUpdate = this.handleSaleUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -101,7 +96,7 @@ class Dashboard extends Component {
     })
   }
 
-  handleSaleDelete(id, columnType) {
+  handleSaleDelete = (id, columnType) => {
     fetch(`/api/sales/${id}`,
       {
         method: 'DELETE',
@@ -109,9 +104,9 @@ class Dashboard extends Component {
           'Content-Type': 'application/json'
         }
       }).then( res => this.deleteSale(id, columnType) )
-  }
+  };
 
-  handleNewSale() {
+  handleNewSale = () => {
     const body = JSON.stringify({
       sale: {
         manufacturer: '',
@@ -129,9 +124,9 @@ class Dashboard extends Component {
       body: body,
     }).then( response => response.json() )
       .then( sale => this.addNewSale(sale) )
-  }
+  };
 
-  handleSaleUpdate(sale, oldColumn = null) {
+  handleSaleUpdate = (sale, oldColumn = null) => {
     fetch(`/api/sales/${sale.id}`,
       {
         method: 'PUT',
@@ -144,7 +139,7 @@ class Dashboard extends Component {
           ? this.handleSaleDrop(sale, oldColumn)
           : this.updateSale(sale)
       })
-  }
+  };
 
   handleSaleDrop = (sale, oldColumn) => {
     let {id, column_type} = sale;

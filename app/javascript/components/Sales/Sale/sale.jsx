@@ -56,18 +56,21 @@ class Sale extends React.Component {
 
   handleNewOrEditSale = () => {
     if (this.state.editable) {
-      let id = this.props.sale.id;
-      let manufacturer = this.manufacturer.value;
-      let description = this.description.value;
-      let price = this.price.value;
-      let column = this.props.sale.column_type;
+
+      const id = this.props.sale.id;
+      const manufacturer = this.manufacturer.value;
+      const description = this.description.value;
+      const price = this.price.value;
+      const column = this.props.sale.column_type;
+      const columnUpdate = this.props.sale.column_update;
 
       let updatedSale = {
         id: id,
         manufacturer: manufacturer,
         description: description,
         price: price,
-        column_type: column
+        column_type: column,
+        column_update: columnUpdate
       };
 
       this.props.handleUpdate(updatedSale);
