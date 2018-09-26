@@ -56,8 +56,10 @@ class Dashboard extends Component {
       },
       columnUpdate: {
         saleName: '',
+        actualColumn: '',
         lastColumn: '',
-        timeToUpdate: ''
+        timeToUpdate: '',
+        winDate: '',
       }
     };
 
@@ -164,11 +166,18 @@ class Dashboard extends Component {
       ...newColumns
     };
 
+    const day = now.getDate();
+    const month = now.getMonth()+1;
+    const year = now.getFullYear();
+    const winDate = sale.column_type === 'ganhos' ? `${day}/${month}/${year}` : '';
+
     this.setState({
       columnUpdate: {
         saleName: sale.description,
         lastColumn: oldColumn,
-        timeToUpdate: updateTime
+        actualColumn: sale.column_type,
+        timeToUpdate: updateTime,
+        winDate: winDate
       }
     });
 
@@ -213,7 +222,14 @@ class Dashboard extends Component {
   }
 
   render() {
-    const {saleName, lastColumn, timeToUpdate} = this.state.columnUpdate;
+    const {saleName, actualColumn, lastColumn, timeToUpdate, winDate} = this.state.columnUpdate;
+
+    let footer = null;
+    if (saleName) {
+      footer = actualColumn === 'ganhos'
+        ? <p> O item <span>{saleName}</span> foi GANHO em {winDate}</p>
+        : <p> O item <span>{saleName}</span> durou como {lastColumn} por {timeToUpdate}segundos</p>
+    }
 
     return(
       <React.Fragment>
@@ -233,11 +249,7 @@ class Dashboard extends Component {
           />
         </div>
         <div>
-          <p>{saleName
-                ? `${saleName} lasted on ${lastColumn} for ${timeToUpdate}seconds`
-                : null
-             }
-          </p>
+          {footer}
         </div>
       </React.Fragment>
     )
